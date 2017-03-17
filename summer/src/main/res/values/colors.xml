@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#1976d2</color>
+
+    <color name="colorGreen">#4CAF50</color>
+    <color name="textPrimary">#212121</color>
+    <color name="light_colorPrimary">#C5CAE9</color>
+    <color name="text_icon">#FFFFFF</color>
+    <color name="text_second">#757575</color>
+    <color name="divider">#BDBDBD</color>
+
+    <color name="colorBg">#2D78B1</color>
+    <color name="colorGrey">#D1D1D1</color>
+
+    <color name="theme_blue_one">#bbdefb</color>
+    <color name="theme_blue_two">#90caf9</color>
+    <color name="theme_blue_three">#64b5f6</color>
+    <color name="theme_blue_four">#42a5f5</color>
+    <color name="theme_blue_five">#2196f3</color>
+    <color name="theme_blue_six">#1e88e5</color>
+    <color name="theme_blue_seven">#1976d2</color>
+    <color name="theme_blue_eight">#1565c0</color>
+    <color name="theme_blue_nine">#0d47a1</color>
+    <color name="theme_blue_ten">#283593</color>
+
+
+    <color name="text_alpha">#99AAAAAA</color>
+
+    <color name="white">#FCFCFC</color>
+    <color name="text_red">#FF6100</color>
+    <color name="br_color">#fff</color>
+    <color name="main_hint_text">#999</color>
+    <color name="main_red">#FF9900</color>
+    <color name="black">#000000</color>
+    <color name="gray">#b0b0b0</color>
+    <color name="green">#39C526</color>
+    <color name="green_text">#4CC317</color>
+    <color name="text_green">#9BBB59</color>
+    <color name="text_default">#77787B</color>
+    <color name="default_text">#BCBCBC</color>
+    <color name="notice_text_red">#E574E0</color>
+    <color name="find_default">#8B8B8B</color>
+    <color name="red">#ff0000</color>
+    <color name="dot_color">#ff0000</color>
+    <color name="white_bg">#ffffff</color>
+
+    <!-- 浅灰色 -->
+    <color name="general_text_color4">#d2d4d9</color>
+
+    <!-- 浅绿色 -->
+    <color name="general_green">#00ff00</color>
+    <color name="main_selected">#1daca5</color>
+
+    <!-- 紫色 -->
+    <color name="purple">#D05DC1</color>
+    <color name="report_line">#CCCCD0</color>
+    <color name="report_bg">#EFEFF5</color>
+
+    <!-- 黄色 -->
+    <color name="text_yellow">#DBC754</color>
+
+    <!-- 上传图片添加的颜色 -->
+    <color name="none_color">#00000000</color>
+    <color name="plugin_camera_black">#000000</color>
+    <color name="albumback">#E1E0DE</color>
+    <color name="memeber_divide">#01B9FF</color>
+
+    <!-- 橙色 -->
+    <color name="orange">#FDC36F</color>
+
+    <!-- light orange -->
+    <color name="main_orange">#FF6100</color>
+
+    <!-- 半透明 -->
+    <color name="general_touming_black">#78d2d4d9</color>
+    <color name="transparent">#00000000</color>
+
+    <color name="main_item_tv">#ff58BE13</color>
+
+    <color name="qzone_omit_tv">#ffBBBBBB</color>
+    <color name="topic_omit_tv">#ffBBBBBB</color>
+
+    <color name="topic_user_name_tv">#ff84A2BC</color>
+    <color name="topic_user_location_tv">#ffBBBBBB</color>
+    <color name="topic_tag_tv">#ffEB9F7B</color>
+    <color name="topic_content_side_v">#ffEFEFEF</color>
+
+    <color name="topic_content_button_v">#ff97A4AF</color>
+
+    <color name="colorBottom">#146e6e</color>
+    <color name="colorThemeBlue">#0066cc</color>
+    <color name="colorThemeYellow">#EEEE00</color>
+    <color name="colorThemeRed">#EE2c2c</color>
+    <color name="colorThemeGreen">#008b45</color>
+
+    <color name="colorWhite">#FFF</color>
+    <color name="colorBtn">#489Ef7</color>
+    <color name="colorBtnSingIn">#24e058</color>
+    <color name="colorLigin">#3498db</color>
+
+    <color name="colorPink">#FF5722</color>
+    <color name="colorDark1">#305066</color>
+    <color name="colorDark2">#285171</color>
+    <color name="colorDark3">#08415a</color>
+    <color name="colorDark4">#093d5a</color>
+    <color name="colorDark5">#353241</color>
+    <color name="colorDark6">#040b27</color>
+    <color name="colorDark7">#262a3b</color>
+    <color name="colorDark8">#2a213f</color>
+    <color name="colorDark9">#2e2e2e</color>
+
+</resources>
