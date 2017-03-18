@@ -8,10 +8,7 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.view.animation.LinearInterpolator;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.summer.MainActivity;
@@ -66,7 +63,6 @@ public class StartActivity extends AppCompatActivity {
         });
         animator.start();
 
-
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -80,9 +76,22 @@ public class StartActivity extends AppCompatActivity {
     }
 
     private void StartApp() {
-        Intent intent = new Intent(StartActivity.this, MainActivity.class);
-        startActivity(intent);
-        finish();
+
+        String Verify = sp.getStringByKey("Verify");
+        Log.e(TAG, "-- Verify is --" + Verify);
+
+        if (!Verify.equals("Success")) {
+            Intent intent1 = new Intent(StartActivity.this,SignActivity.class);
+            startActivity(intent1);
+            finish();
+            Log.e(TAG, "--- USER_ID is empty,To SignActivity ---");
+        }else {
+            Log.e(TAG, "--- USER_ID is not empty ---");
+            Intent intent2 = new Intent(StartActivity.this, MainActivity.class);
+            startActivity(intent2);
+            finish();
+        }
+
     }
 
 
