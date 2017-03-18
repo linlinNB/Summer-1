@@ -6,20 +6,42 @@
     android:orientation="vertical">
 
     <RelativeLayout
+        android:id="@+id/rlt_root"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tv_start"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:id="@+id/rlt_title"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="<Summer/>"
-            android:textColor="#FFF"
-            android:textSize="30sp"
-            />
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="80dp">
 
+            <TextView
+                android:id="@+id/tv_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textColor="#FFF"
+                android:textSize="30sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rlt_title"
+            android:layout_marginTop="80sp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tv_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textColor="#FFF"
+                android:textSize="35sp" />
+
+        </RelativeLayout>
     </RelativeLayout>
-
 </LinearLayout>

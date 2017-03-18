@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Summer</string>
+    <string name="summer"><![CDATA[<Summer/>]]></string>
+    <string name="hello_world"><![CDATA[=> Hello World ..]]></string>
 </resources>

@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.summer.MainActivity;
@@ -27,43 +28,43 @@ public class StartActivity extends AppCompatActivity {
     private static final String TAG = "StartActivity";
     Context context = StartActivity.this;
     SharedPreferencesUtil sp;
-    private TextView tv_start;
+    private TextView tv_title;
+    private TextView tv_content;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
-        tv_start = (TextView) findViewById(R.id.tv_start);
+
         initView();
         startAnim();
     }
 
     private void initView() {
         sp = new SharedPreferencesUtil(context, SP_Constant.SP_NAME);
-        tv_start = (TextView) findViewById(R.id.tv_start);
+        tv_title = (TextView) findViewById(R.id.tv_start);
+        tv_content = (TextView) findViewById(R.id.tv_content);
     }
 
     private void startAnim() {
-        tv_start.postDelayed(new Runnable() {
+
+        ValueAnimator animator = ValueAnimator.ofFloat(0, 1);
+        animator.setDuration(900);
+        animator.setInterpolator(new LinearInterpolator());
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
-            public void run() {
-                ValueAnimator animator = ValueAnimator.ofFloat(0,1);
-                animator.setDuration(800);
-                animator.setInterpolator(new LinearInterpolator());
-                animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                    @Override
-                    public void onAnimationUpdate(ValueAnimator animation) {
-                        float iv_alpha  = (float) animation.getAnimatedValue();
+            public void onAnimationUpdate(ValueAnimator animation) {
+                float alpha = (float) animation.getAnimatedValue();
 
-                        tv_start.setAlpha(iv_alpha);
-                        Log.e(TAG,"--- show iv_alpha --- "+iv_alpha);
-
-                    }
-                });
-
+                tv_title.setText(R.string.summer);
+                tv_content.setText(R.string.hello_world);
+                tv_title.setAlpha(alpha);
+                tv_content.setAlpha(alpha);
+                Log.e(TAG, "--- show iv_alpha title--- " + alpha);
             }
-        },800);
+        });
+        animator.start();
 
 
         Handler handler = new Handler();
@@ -71,20 +72,22 @@ public class StartActivity extends AppCompatActivity {
             @Override
             public void run() {
                 StartApp();
+
             }
-        },1500);
+        }, 1200);
+
 
     }
 
     private void StartApp() {
         Intent intent = new Intent(StartActivity.this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
 
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        this.finish();
     }
 }
