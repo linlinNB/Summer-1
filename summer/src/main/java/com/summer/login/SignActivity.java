@@ -33,6 +33,7 @@ import com.avos.avoscloud.SignUpCallback;
 import com.summer.MainActivity;
 import com.summer.R;
 import com.summer.constant.SP_Constant;
+import com.summer.location.LocMap;
 import com.summer.utils.SharedPreferencesUtil;
 import com.summer.utils.ShowToast;
 import com.summer.utils.Tools;
@@ -146,7 +147,8 @@ public class SignActivity extends AppCompatActivity
                 mRelat_live.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Intent intent = new Intent(SignActivity.this, MainActivity.class);
+//                        Intent intent = new Intent(SignActivity.this, MainActivity.class);
+                        Intent intent = new Intent(SignActivity.this,LocMap.class);
                         startActivity(intent);
                     }
                 }, 5000);
