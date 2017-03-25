@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".location.LocMap">
+
+    <item
+        android:id="@+id/action_aLine"
+        android:icon="@mipmap/ic_idea"
+        android:orderInCategory="70"
+        android:title="All_Line"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/action_MyLine"
+        android:icon="@mipmap/ic_about"
+        android:orderInCategory="90"
+        android:title="My_Line"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/action_out"
+        android:icon="@mipmap/ic_loginout"
+        android:orderInCategory="100"
+        android:title="Login out"
+        app:showAsAction="ifRoom"/>
+
+</menu>

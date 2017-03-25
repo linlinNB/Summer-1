@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.summer.MainActivity;
 import com.summer.R;
 import com.summer.constant.SP_Constant;
+import com.summer.location.LocMap;
 import com.summer.utils.SharedPreferencesUtil;
 
 /**
@@ -87,7 +88,7 @@ public class StartActivity extends AppCompatActivity {
             Log.e(TAG, "--- USER_ID is empty,To SignActivity ---");
         }else {
             Log.e(TAG, "--- USER_ID is not empty ---");
-            Intent intent2 = new Intent(StartActivity.this, MainActivity.class);
+            Intent intent2 = new Intent(StartActivity.this, LocMap.class);
             startActivity(intent2);
             finish();
         }
