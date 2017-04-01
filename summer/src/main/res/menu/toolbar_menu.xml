@@ -14,16 +14,22 @@
 
     <item
         android:id="@+id/action_MyLine"
-        android:icon="@mipmap/ic_about"
-        android:orderInCategory="90"
+        android:icon="@mipmap/ic_abt"
+        android:orderInCategory="80"
         android:title="My_Line"
         app:showAsAction="always"/>
 
     <item
+        android:id="@+id/action_setoute"
+        android:title="规划路线"
+        android:orderInCategory="90"
+        app:showAsAction="ifRoom"
+     />
+
+    <item
         android:id="@+id/action_out"
-        android:icon="@mipmap/ic_loginout"
         android:orderInCategory="100"
-        android:title="Login out"
+        android:title="退出应用"
         app:showAsAction="ifRoom"/>
 
 </menu>

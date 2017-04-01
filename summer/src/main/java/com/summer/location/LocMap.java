@@ -74,7 +74,6 @@ public class LocMap extends AppCompatActivity implements
         initMap();
         addListener();
 
-
     }
 
     private void initMap() {
