@@ -1,6 +1,5 @@
 package com.summer.login;
 
-
 import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Intent;
@@ -30,7 +29,6 @@ import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.SignUpCallback;
 
-import com.summer.MainActivity;
 import com.summer.R;
 import com.summer.constant.SP_Constant;
 import com.summer.location.LocMap;
@@ -147,7 +145,6 @@ public class SignActivity extends AppCompatActivity
                 mRelat_live.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-//                        Intent intent = new Intent(SignActivity.this, MainActivity.class);
                         Intent intent = new Intent(SignActivity.this,LocMap.class);
                         startActivity(intent);
                     }

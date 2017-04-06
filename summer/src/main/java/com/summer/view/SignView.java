@@ -38,9 +38,9 @@ public class SignView extends View {
     //成功Text的x坐标
     private float mSuccessTextX;
     //成功Text的文案
-    private String mSuccessText = "SUCCESS";
+    private String mSuccessText = "登入成功";
     //登录Text的文案
-    private String mLoginText = "SIGN IN";
+    private String mLoginText = "开 始";
     //登录Text的alpha值
     private int mLoginTextAlpha;
 

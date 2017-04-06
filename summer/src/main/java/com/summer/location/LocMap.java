@@ -210,7 +210,7 @@ public class LocMap extends AppCompatActivity implements
     public void onBackPressed() {
         if (isState) {
             isState = false;
-            ShowToast.ColorToast(LocMap.this, "Back Map", 1200);
+            ShowToast.ColorToast(LocMap.this, "退出骑行", 1200);
             new Timer().schedule(new TimerTask() {
                 @Override
                 public void run() {

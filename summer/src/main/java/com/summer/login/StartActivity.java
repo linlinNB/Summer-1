@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.animation.LinearInterpolator;
 import android.widget.TextView;
 
-import com.summer.MainActivity;
 import com.summer.R;
 import com.summer.constant.SP_Constant;
 import com.summer.location.LocMap;

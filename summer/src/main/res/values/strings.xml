@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Summer</string>
-    <string name="summer"><![CDATA[<Summer/>]]></string>
-    <string name="hello_world"><![CDATA[=> Hello World ..]]></string>
+    <string name="app_name">Hohhot Ride</string>
+    <string name="summer">青橙骑行</string>
+    <string name="hello_world">Ride Every Day</string>
 </resources>
