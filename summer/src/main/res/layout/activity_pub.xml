@@ -14,61 +14,57 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorBg"
-        app:navigationIcon="?attr/homeAsUpIndicator"
         app:popupTheme="?attr/popupTheme"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:text="锚点"
-            android:textColor="#FFF"
-            android:textSize="18sp"
-            android:layout_marginLeft="5dp"
-            />
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             >
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="锚点"
+                    android:textColor="#FFF"
+                    android:textSize="16sp"
+                    android:layout_marginLeft="5dp"
+                    />
+
+            </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/rlt_camera"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="3"
+                android:layout_weight="4"
+                android:layout_marginRight="10dp"
                 >
-                <TextView
-                    android:id="@+id/tv_add_img"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:text="实景"
-                    android:layout_centerInParent="true"
-                    />
-
                 <ImageView
                     android:layout_width="28sp"
                     android:layout_height="28sp"
                     android:layout_centerInParent="true"
-                    android:layout_toRightOf="@id/tv_add_img"
-                    android:layout_marginLeft="2dp"
                     android:src="@mipmap/ic_camera" />
 
             </RelativeLayout>
 
 
             <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-               />
-
-            <RelativeLayout
                 android:id="@+id/rlt_line_add"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
+                android:layout_marginRight="15dp"
                 >
 
                 <TextView
@@ -77,11 +73,13 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
                     android:text="添加"
+                    android:textSize="16sp"
                     android:layout_centerInParent="true"
+                    android:layout_marginRight="3dp"
                     />
                 <ImageView
-                    android:layout_width="25sp"
-                    android:layout_height="25sp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_centerInParent="true"
                     android:layout_toRightOf="@id/tv_line_add"
                     android:src="@mipmap/ic_ping" />
@@ -111,7 +109,9 @@
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                >
 
                 <ImageView
                     android:id="@+id/iv_lang"
@@ -186,7 +186,9 @@
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:layout_marginRight="10dp"
+                >
 
                 <ImageView
                     android:id="@+id/iv_alt"
@@ -226,12 +228,14 @@
             android:layout_width="match_parent"
             android:layout_height="35dp"
             android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_below="@id/ll_latLong"
             android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/iv_location"
-                android:layout_width="25dp"
+                android:layout_width="23dp"
                 android:layout_height="25dp"
                 android:layout_marginLeft="5dp"
                 android:src="@mipmap/ic_location"

@@ -250,7 +250,7 @@ public class LocMap extends AppCompatActivity implements
                 aMapLocation.getCityCode();
                 aMapLocation.getAdCode();
 
-                aMap.moveCamera(CameraUpdateFactory.zoomTo(15));
+                aMap.moveCamera(CameraUpdateFactory.zoomTo(17));
 
                 aMap.moveCamera(CameraUpdateFactory.changeLatLng(
                         new LatLng(aMapLocation.getLatitude(), aMapLocation.getLongitude())));
