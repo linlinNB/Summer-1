@@ -1,6 +1,6 @@
 package com.summer.publish;
 
-import android.content.ContentResolver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -30,6 +30,8 @@ import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.SaveCallback;
 import com.summer.R;
+import com.summer.constant.SP_Constant;
+import com.summer.utils.SharedPreferencesUtil;
 import com.summer.utils.ShowToast;
 import com.summer.utils.TakePhotoUtils;
 
@@ -37,13 +39,12 @@ import com.summer.utils.TakePhotoUtils;
  * Created by bestotem on 2017/3/25.
  */
 
-public class PubActivity extends AppCompatActivity implements View.OnClickListener{
+public class PubActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "PubActivity";
 
     private static final int TAKE_PHOTO_REQUEST_THREE = 555;
 
     private Uri imageUri;
-    private ContentResolver resolver = null;
     private byte[] mImageBytes = null;
 
     private Toolbar toolbar;
@@ -54,9 +55,11 @@ public class PubActivity extends AppCompatActivity implements View.OnClickListen
     private EditText edtContent;
     private ImageView iv_pub_add;
 
+    private Context context = PubActivity.this;
+    SharedPreferencesUtil sp;
+
     private TextView tv_Long;
     private TextView tv_Lat;
-    private TextView tv_alt;
     private TextView tv_location;
 
     public static BitmapFactory.Options getOptions(String path) {
@@ -66,7 +69,6 @@ public class PubActivity extends AppCompatActivity implements View.OnClickListen
         options.inPreferredConfig = Bitmap.Config.RGB_565;
         options.inSampleSize = 4;      //此项参数可以根据需求进行计算
         options.inJustDecodeBounds = false;
-
         return options;
     }
 
@@ -75,6 +77,8 @@ public class PubActivity extends AppCompatActivity implements View.OnClickListen
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pub);
+        sp = new SharedPreferencesUtil(context, SP_Constant.SP_NAME);
+
         initView();
         addListener();
         initEvent();
@@ -106,7 +110,7 @@ public class PubActivity extends AppCompatActivity implements View.OnClickListen
                 InputMethodManager imm = (InputMethodManager)
                         getSystemService(PubActivity.this.INPUT_METHOD_SERVICE);
 
-                imm.hideSoftInputFromWindow(edtTitle.getWindowToken(),0);
+                imm.hideSoftInputFromWindow(edtTitle.getWindowToken(), 0);
             }
         });
     }
@@ -121,7 +125,6 @@ public class PubActivity extends AppCompatActivity implements View.OnClickListen
 
         tv_Long = (TextView) findViewById(R.id.tv_show_Long);
         tv_Lat = (TextView) findViewById(R.id.tv_show_Lat);
-        tv_alt = (TextView) findViewById(R.id.tv_show_altitude);
         tv_location = (TextView) findViewById(R.id.tv_location);
 
     }
@@ -137,12 +140,21 @@ public class PubActivity extends AppCompatActivity implements View.OnClickListen
         edtTitle.setFocusableInTouchMode(true);
         edtTitle.requestFocus();
         edtTitle.requestFocusFromTouch();
+
+        String mapLong = sp.getStringByKey("MapLong");
+        String mapLat = sp.getStringByKey("MapLat");
+        String mapLocation = sp.getStringByKey("MapLoc");
+
+        tv_Long.setText(mapLong);
+        tv_Lat.setText(mapLat);
+        tv_location.setText(mapLocation);
+
     }
 
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.rlt_camera:
                 showOptionDialog();
                 break;
@@ -159,7 +171,7 @@ public class PubActivity extends AppCompatActivity implements View.OnClickListen
     }
 
 
-    private void sendPublish(final String pubTitle,final String pubContent){
+    private void sendPublish(final String pubTitle, final String pubContent) {
         if ("".equals(pubTitle)) {
             ShowToast.ColorToast(PubActivity.this, "= Waring = No Title", 1200);
             return;
@@ -173,15 +185,15 @@ public class PubActivity extends AppCompatActivity implements View.OnClickListen
         // TODO add a loading View Start
 
         AVObject summer_pub = new AVObject("Summer_Pub");
-        summer_pub.put("pub_title",pubTitle);
-        summer_pub.put("pub_content",pubContent);
+        summer_pub.put("pub_title", pubTitle);
+        summer_pub.put("pub_content", pubContent);
         summer_pub.put("owner", AVUser.getCurrentUser());
-        summer_pub.put("image",new AVFile("pub_image",mImageBytes));
+        summer_pub.put("image", new AVFile("pub_image", mImageBytes));
 
         summer_pub.saveInBackground(new SaveCallback() {
             @Override
             public void done(AVException e) {
-                if (e==null){
+                if (e == null) {
                     Log.e(TAG, "== Save Pub Success ==" + e);
 
                     // TODO add a loading View finish
@@ -189,7 +201,9 @@ public class PubActivity extends AppCompatActivity implements View.OnClickListen
                     ShowToast.ColorToast(PubActivity.this, "Save Pub Success", 1200);
 
                     // TODO jump to new Activity
-                }else {
+
+
+                } else {
                     // TODO add a loading View finish
                     Log.e(TAG, "== Save Pub Failed ==" + e);
                 }
@@ -197,7 +211,7 @@ public class PubActivity extends AppCompatActivity implements View.OnClickListen
         });
     }
 
-    private void showOptionDialog(){
+    private void showOptionDialog() {
         String[] items = new String[]{"拍照", "选择本地图片"};
 
         DialogInterface.OnClickListener click =
@@ -238,7 +252,6 @@ public class PubActivity extends AppCompatActivity implements View.OnClickListen
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
-            case 111:
             case 222:
                 if (resultCode == RESULT_CANCELED) {
                     ShowToast.ColorToast(PubActivity.this, "点击取消从相册选择", 1500);

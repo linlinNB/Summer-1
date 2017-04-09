@@ -26,9 +26,11 @@ import com.amap.api.maps2d.model.BitmapDescriptorFactory;
 import com.amap.api.maps2d.model.LatLng;
 import com.amap.api.maps2d.model.MyLocationStyle;
 import com.summer.R;
+import com.summer.constant.SP_Constant;
 import com.summer.publish.PubActivity;
 import com.summer.roadline.AllLine;
 import com.summer.roadline.ProLine;
+import com.summer.utils.SharedPreferencesUtil;
 import com.summer.utils.ShowToast;
 
 import java.text.SimpleDateFormat;
@@ -55,6 +57,8 @@ public class LocMap extends AppCompatActivity implements
 
     private boolean locShow = true;
 
+    SharedPreferencesUtil sp;
+
 
     // 定位需要的声明
     private AMapLocationClient mLocationClient = null;//定位发起端
@@ -65,6 +69,8 @@ public class LocMap extends AppCompatActivity implements
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lbs);
+
+        sp = new SharedPreferencesUtil(LocMap.this, SP_Constant.SP_NAME);
 
         mapView = (MapView) findViewById(R.id.map_view);
         mapView.onCreate(savedInstanceState);
@@ -162,18 +168,13 @@ public class LocMap extends AppCompatActivity implements
         return false;
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.float_btn:
-                Intent intent = new Intent(LocMap.this, PubActivity.class);
-                startActivity(intent);
-                break;
+    private void addLinePoint() {
 
-            default:
-                break;
-        }
 
+        Intent intent = new Intent(LocMap.this, PubActivity.class);
+        Bundle bundle = new Bundle();
+
+        startActivity(intent);
     }
 
     @Override
@@ -232,10 +233,6 @@ public class LocMap extends AppCompatActivity implements
                 aMapLocation.getLongitude();
                 aMapLocation.getAccuracy();
 
-                Log.e(TAG, "-- Latitude【纬度】 --" + aMapLocation.getLatitude());
-                Log.e(TAG, "-- Longitude【经度】 --" + aMapLocation.getLongitude());
-                Log.e(TAG, "-- Accuracy【精度】 --" + aMapLocation.getAccuracy());
-
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 Date date = new Date(aMapLocation.getTime());
                 df.format(date);
@@ -249,6 +246,17 @@ public class LocMap extends AppCompatActivity implements
                 aMapLocation.getStreetNum();
                 aMapLocation.getCityCode();
                 aMapLocation.getAdCode();
+
+                double mapLong = aMapLocation.getLongitude();
+                double mapLat = aMapLocation.getLatitude();
+                StringBuffer mapLocation = new StringBuffer();
+
+
+                mapLocation.append(aMapLocation.getCity()
+                        +" "+aMapLocation.getDistrict()
+                        +" "+aMapLocation.getStreet()
+                        +" "+aMapLocation.getStreetNum()
+                );
 
                 aMap.moveCamera(CameraUpdateFactory.zoomTo(17));
 
@@ -266,6 +274,15 @@ public class LocMap extends AppCompatActivity implements
 
                 if (changeLoc != aMapLocation.getStreet() || locShow) {
                     ShowToast.ColorToast(LocMap.this, buffer.toString(), 2500);
+
+                    String location = mapLocation.toString();
+                    String maplong = mapLong+"";
+                    String maplat = mapLat+"";
+
+                    sp.saveString("MapLong",maplong);
+                    sp.saveString("MapLat",maplat);
+                    sp.saveString("MapLoc",location);
+
                     locShow = false;
                 }
 
@@ -287,4 +304,23 @@ public class LocMap extends AppCompatActivity implements
     public void deactivate() {
         mListener = null;
     }
+
+
+
+
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()) {
+            case R.id.float_btn:
+
+                addLinePoint();
+                break;
+
+            default:
+                break;
+        }
+
+    }
+
 }

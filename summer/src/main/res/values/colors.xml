@@ -96,6 +96,7 @@
     <color name="colorThemeRed">#EE2c2c</color>
     <color name="colorThemeGreen">#008b45</color>
 
+    <color name="newWhite">#F7F7F3</color>
     <color name="colorWhite">#FFF</color>
     <color name="colorBtn">#489Ef7</color>
     <color name="colorBtnSingIn">#24e058</color>

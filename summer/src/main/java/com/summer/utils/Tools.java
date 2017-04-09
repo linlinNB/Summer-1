@@ -68,6 +68,13 @@ public class Tools {
     }
 
     /**
+     * 得到设备的密度
+     */
+    private static float getScreenDensity(Context context) {
+        return context.getResources().getDisplayMetrics().density;
+    }
+
+    /**
      * 获取控件内容
      */
     public static String getTextViewText(TextView textView) {
