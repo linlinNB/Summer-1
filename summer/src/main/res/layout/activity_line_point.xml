@@ -10,13 +10,30 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorBg"
+        android:navigationIcon="?attr/homeAsUpIndicator"
         app:popupTheme="?attr/popupTheme"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="我的锚点"
+            android:textColor="#FFF"
+            android:textSize="20sp"
+            />
 
 
     </android.support.v7.widget.Toolbar>
 
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyc_line_point"
+            android:layout_below="@id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
 
 
 

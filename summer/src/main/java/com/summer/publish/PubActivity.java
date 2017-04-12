@@ -162,7 +162,8 @@ public class PubActivity extends AppCompatActivity implements View.OnClickListen
             case R.id.rlt_line_add:
                 String pubTitle = edtTitle.getText().toString().trim();
                 String pubContent = edtContent.getText().toString().trim();
-                sendPublish(pubTitle, pubContent);
+                String pubLocation = sp.getStringByKey("MapLoc");
+                sendPublish(pubTitle, pubContent,pubLocation);
                 break;
 
             default:
@@ -171,7 +172,7 @@ public class PubActivity extends AppCompatActivity implements View.OnClickListen
     }
 
 
-    private void sendPublish(final String pubTitle, final String pubContent) {
+    private void sendPublish(final String pubTitle, final String pubContent,final String pubLocation) {
         if ("".equals(pubTitle)) {
             ShowToast.ColorToast(PubActivity.this, "= Waring = No Title", 1200);
             return;
@@ -187,6 +188,7 @@ public class PubActivity extends AppCompatActivity implements View.OnClickListen
         AVObject summer_pub = new AVObject("Summer_Pub");
         summer_pub.put("pub_title", pubTitle);
         summer_pub.put("pub_content", pubContent);
+        summer_pub.put("pub_location",pubLocation);
         summer_pub.put("owner", AVUser.getCurrentUser());
         summer_pub.put("image", new AVFile("pub_image", mImageBytes));
 
@@ -201,6 +203,9 @@ public class PubActivity extends AppCompatActivity implements View.OnClickListen
                     ShowToast.ColorToast(PubActivity.this, "Save Pub Success", 1200);
 
                     // TODO jump to new Activity
+                    Intent intent = new Intent(PubActivity.this,LinePointActivity.class);
+                    startActivity(intent);
+                    finish();
 
 
                 } else {
