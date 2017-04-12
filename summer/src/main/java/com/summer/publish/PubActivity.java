@@ -23,6 +23,8 @@ import android.widget.TextView;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;
@@ -54,6 +56,7 @@ public class PubActivity extends AppCompatActivity implements View.OnClickListen
     private EditText edtTitle;
     private EditText edtContent;
     private ImageView iv_pub_add;
+    private String pointDate;
 
     private Context context = PubActivity.this;
     SharedPreferencesUtil sp;
@@ -61,6 +64,7 @@ public class PubActivity extends AppCompatActivity implements View.OnClickListen
     private TextView tv_Long;
     private TextView tv_Lat;
     private TextView tv_location;
+
 
     public static BitmapFactory.Options getOptions(String path) {
         BitmapFactory.Options options = new BitmapFactory.Options();
@@ -141,6 +145,12 @@ public class PubActivity extends AppCompatActivity implements View.OnClickListen
         edtTitle.requestFocus();
         edtTitle.requestFocusFromTouch();
 
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        pointDate = bundle.getString("LocDate");
+
+        Log.e(TAG,"### LocDate## "+pointDate);
+
         String mapLong = sp.getStringByKey("MapLong");
         String mapLat = sp.getStringByKey("MapLat");
         String mapLocation = sp.getStringByKey("MapLoc");
@@ -163,7 +173,7 @@ public class PubActivity extends AppCompatActivity implements View.OnClickListen
                 String pubTitle = edtTitle.getText().toString().trim();
                 String pubContent = edtContent.getText().toString().trim();
                 String pubLocation = sp.getStringByKey("MapLoc");
-                sendPublish(pubTitle, pubContent,pubLocation);
+                sendPublish(pubTitle, pubContent,pubLocation,pointDate);
                 break;
 
             default:
@@ -172,7 +182,10 @@ public class PubActivity extends AppCompatActivity implements View.OnClickListen
     }
 
 
-    private void sendPublish(final String pubTitle, final String pubContent,final String pubLocation) {
+    private void sendPublish(final String pubTitle,
+                             final String pubContent,
+                             final String pubLocation,
+                             final String pubTime) {
         if ("".equals(pubTitle)) {
             ShowToast.ColorToast(PubActivity.this, "= Waring = No Title", 1200);
             return;
@@ -189,6 +202,7 @@ public class PubActivity extends AppCompatActivity implements View.OnClickListen
         summer_pub.put("pub_title", pubTitle);
         summer_pub.put("pub_content", pubContent);
         summer_pub.put("pub_location",pubLocation);
+        summer_pub.put("pub_time",pubTime);
         summer_pub.put("owner", AVUser.getCurrentUser());
         summer_pub.put("image", new AVFile("pub_image", mImageBytes));
 

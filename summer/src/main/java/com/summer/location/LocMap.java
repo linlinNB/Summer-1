@@ -27,6 +27,7 @@ import com.amap.api.maps2d.model.LatLng;
 import com.amap.api.maps2d.model.MyLocationStyle;
 import com.summer.R;
 import com.summer.constant.SP_Constant;
+import com.summer.publish.LinePointActivity;
 import com.summer.publish.PubActivity;
 import com.summer.roadline.AllLine;
 import com.summer.roadline.ProLine;
@@ -50,6 +51,7 @@ public class LocMap extends AppCompatActivity implements
     private boolean isState = true;
     private Toolbar toolbar;
     private FloatingActionButton flabBtn;
+    private String pointDate;
 
     // 地图控件
     private MapView mapView;
@@ -148,7 +150,8 @@ public class LocMap extends AppCompatActivity implements
                 break;
 
             case R.id.action_MyLine:
-                Intent intentMyLine = new Intent(LocMap.this, ProLine.class);
+//                Intent intentMyLine = new Intent(LocMap.this, ProLine.class);
+                Intent intentMyLine = new Intent(LocMap.this, LinePointActivity.class);
                 startActivity(intentMyLine);
                 break;
 
@@ -173,7 +176,8 @@ public class LocMap extends AppCompatActivity implements
 
         Intent intent = new Intent(LocMap.this, PubActivity.class);
         Bundle bundle = new Bundle();
-
+        bundle.putString("LocDate",pointDate);
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 
@@ -233,9 +237,13 @@ public class LocMap extends AppCompatActivity implements
                 aMapLocation.getLongitude();
                 aMapLocation.getAccuracy();
 
-                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                SimpleDateFormat df = new SimpleDateFormat("MM-dd HH:mm");
                 Date date = new Date(aMapLocation.getTime());
                 df.format(date);
+
+                pointDate = df.format(date);
+
+                Log.e(TAG,"*** Show get Date is ***"+df.format(date));
 
                 aMapLocation.getAddress();
                 aMapLocation.getCountry();

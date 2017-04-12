@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
@@ -20,21 +20,34 @@
             android:layout_gravity="center"
             android:text="我的锚点"
             android:textColor="#FFF"
-            android:textSize="20sp"
-            />
+            android:textSize="20sp" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+
+            >
+
+        </RelativeLayout>
 
 
     </android.support.v7.widget.Toolbar>
 
+    <com.summer.view.BounceScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyc_line_point"
-            android:layout_below="@id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_below="@id/toolbar">
 
         </android.support.v7.widget.RecyclerView>
 
+    </com.summer.view.BounceScrollView>
 
 
 </RelativeLayout>

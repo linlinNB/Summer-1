@@ -44,6 +44,7 @@ public class LinePointAdapter extends
         holder.point_Title.setText((CharSequence) mList.get(position).get("pub_title"));
         holder.point_Content.setText((CharSequence)mList.get(position).get("pub_content"));
         holder.point_Location.setText((CharSequence)mList.get(position).get("pub_location"));
+        holder.point_Time.setText((CharSequence)mList.get(position).get("pub_time"));
 
         holder.point_Item.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +67,7 @@ public class LinePointAdapter extends
         private TextView point_Location;
         private TextView point_Content;
         private TextView point_Title;
+        private TextView point_Time;
         private CardView point_Item;
 
         public LinePointHolder(View itemView) {
@@ -74,6 +76,7 @@ public class LinePointAdapter extends
             point_Location = (TextView) itemView.findViewById(R.id.tv_item_location);
             point_Content = (TextView) itemView.findViewById(R.id.tv_item_line_content);
             point_Title = (TextView) itemView.findViewById(R.id.tv_item_line_title);
+            point_Time = (TextView) itemView.findViewById(R.id.tv_item_line_time);
             point_Item = (CardView) itemView.findViewById(R.id.card_point_main);
 
         }
