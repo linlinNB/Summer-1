@@ -58,7 +58,6 @@ public class StartActivity extends AppCompatActivity {
                 tv_content.setText(R.string.hello_world);
                 tv_title.setAlpha(alpha);
                 tv_content.setAlpha(alpha);
-                Log.e(TAG, "--- show iv_alpha title--- " + alpha);
             }
         });
         animator.start();

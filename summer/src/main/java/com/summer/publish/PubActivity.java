@@ -173,7 +173,15 @@ public class PubActivity extends AppCompatActivity implements View.OnClickListen
                 String pubTitle = edtTitle.getText().toString().trim();
                 String pubContent = edtContent.getText().toString().trim();
                 String pubLocation = sp.getStringByKey("MapLoc");
-                sendPublish(pubTitle, pubContent,pubLocation,pointDate);
+                String pubLat = sp.getStringByKey("MapLat");
+                String pubLong = sp.getStringByKey("MapLong");
+                sendPublish(
+                        pubTitle,
+                        pubContent,
+                        pubLocation,
+                        pubLat,
+                        pubLong,
+                        pointDate);
                 break;
 
             default:
@@ -185,6 +193,8 @@ public class PubActivity extends AppCompatActivity implements View.OnClickListen
     private void sendPublish(final String pubTitle,
                              final String pubContent,
                              final String pubLocation,
+                             final String pubLat,
+                             final String pubLong,
                              final String pubTime) {
         if ("".equals(pubTitle)) {
             ShowToast.ColorToast(PubActivity.this, "= Waring = No Title", 1200);
@@ -202,6 +212,8 @@ public class PubActivity extends AppCompatActivity implements View.OnClickListen
         summer_pub.put("pub_title", pubTitle);
         summer_pub.put("pub_content", pubContent);
         summer_pub.put("pub_location",pubLocation);
+        summer_pub.put("pub_lat",pubLat);
+        summer_pub.put("pub_long",pubLong);
         summer_pub.put("pub_time",pubTime);
         summer_pub.put("owner", AVUser.getCurrentUser());
         summer_pub.put("image", new AVFile("pub_image", mImageBytes));

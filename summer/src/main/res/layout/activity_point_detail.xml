@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorBg"
+        android:navigationIcon="?attr/homeAsUpIndicator"
+        app:popupTheme="?attr/popupTheme"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="锚点位置"
+            android:textColor="#FFF"
+            android:textSize="20sp" />
+    </android.support.v7.widget.Toolbar>
+
+    <com.summer.view.BounceScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/rlt_map"
+                android:layout_width="match_parent"
+                android:layout_height="210dp"
+                android:background="#CCC">
+
+                <com.amap.api.maps2d.MapView
+                    android:id="@+id/map_point"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </com.amap.api.maps2d.MapView>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_margin="5dp"
+                android:background="#F2F2F2">
+
+                <TextView
+                    android:id="@+id/tv_txt_point"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="5dp"
+                    android:text="锚点位置"
+                    android:textColor="#636363"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_point_loc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_txt_point"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="2dp"
+                    android:textColor="#4C4C4C"
+                    android:textSize="18dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
+
+                <RelativeLayout
+                    android:id="@+id/rlt_point_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="#E8E8E8">
+
+                    <TextView
+                        android:id="@+id/tv_point_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:padding="10dp"
+                        android:textColor="#525252"
+                        android:textSize="18sp"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rlt_point_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@id/rlt_point_title"
+                    >
+
+                    <TextView
+                        android:id="@+id/tv_point_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:textSize="16sp"
+                        android:singleLine="false"
+                        />
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/rlt_point_Image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@id/rlt_point_content"
+                    >
+
+                    <ImageView
+                        android:id="@+id/iv_point_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="350dp"
+                        android:layout_margin="10dp"
+                        android:scaleType="centerCrop"
+                        />
+
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </com.summer.view.BounceScrollView>
+
+
+</RelativeLayout>

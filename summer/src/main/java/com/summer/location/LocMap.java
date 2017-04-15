@@ -28,6 +28,7 @@ import com.amap.api.maps2d.model.MyLocationStyle;
 import com.summer.R;
 import com.summer.constant.SP_Constant;
 import com.summer.publish.LinePointActivity;
+import com.summer.publish.PointDetail;
 import com.summer.publish.PubActivity;
 import com.summer.roadline.AllLine;
 import com.summer.roadline.ProLine;
@@ -67,6 +68,8 @@ public class LocMap extends AppCompatActivity implements
     private AMapLocationClientOption mLocationOption = null;//定位参数
     private OnLocationChangedListener mListener = null;//定位监听器
 
+    private boolean isFirstLoc = true;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,26 +82,38 @@ public class LocMap extends AppCompatActivity implements
 
         initBar();
         initView();
-        initMap();
+        setUpMap();
         addListener();
 
     }
 
-    private void initMap() {
-        if (aMap == null) {
-            aMap = mapView.getMap();
-            setUpMap();
-        }
-        UiSettings uiSettings = aMap.getUiSettings();
-        uiSettings.setMyLocationButtonEnabled(false);
-        uiSettings.setZoomPosition(AMapOptions.ZOOM_POSITION_RIGHT_CENTER);
+    private void initBar() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+    }
+
+    private void initView() {
+        flabBtn = (FloatingActionButton) findViewById(R.id.float_btn);
+
+    }
+
+    private void addListener() {
+        toolbar.setOnMenuItemClickListener(this);
+        flabBtn.setOnClickListener(this);
     }
 
     private void setUpMap() {
+        aMap = mapView.getMap();
+
+        UiSettings uiSettings = aMap.getUiSettings();
+        uiSettings.setMyLocationButtonEnabled(false);
+        uiSettings.setZoomPosition(AMapOptions.ZOOM_POSITION_RIGHT_CENTER);
+
         MyLocationStyle locationStyle = new MyLocationStyle();
+        locationStyle.myLocationIcon(BitmapDescriptorFactory.fromResource(R.mipmap.iv_location));
         locationStyle.strokeWidth(200);
-        locationStyle.strokeColor(Color.argb(0,255,255,255));
-        locationStyle.radiusFillColor(Color.argb(0,255,255,255));
+        locationStyle.strokeColor(Color.argb(0, 255, 255, 255));
+        locationStyle.radiusFillColor(Color.argb(0, 255, 255, 255));
 
 
         aMap.setMyLocationStyle(locationStyle);
@@ -126,26 +141,13 @@ public class LocMap extends AppCompatActivity implements
 
     }
 
-    private void initBar() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-    }
-
-    private void initView() {
-        flabBtn = (FloatingActionButton) findViewById(R.id.float_btn);
-
-    }
-
-    private void addListener() {
-        toolbar.setOnMenuItemClickListener(this);
-        flabBtn.setOnClickListener(this);
-    }
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_aLine:
-                Intent intentALine = new Intent(LocMap.this, AllLine.class);
+//                Intent intentALine = new Intent(LocMap.this, AllLine.class);
+                Intent intentALine = new Intent(LocMap.this, PointDetail.class);
                 startActivity(intentALine);
                 break;
 
@@ -172,11 +174,9 @@ public class LocMap extends AppCompatActivity implements
     }
 
     private void addLinePoint() {
-
-
         Intent intent = new Intent(LocMap.this, PubActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putString("LocDate",pointDate);
+        bundle.putString("LocDate", pointDate);
         intent.putExtras(bundle);
         startActivity(intent);
     }
@@ -185,6 +185,97 @@ public class LocMap extends AppCompatActivity implements
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
         return true;
+    }
+
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mapView.onSaveInstanceState(outState);
+    }
+
+
+    @Override
+    public void onLocationChanged(AMapLocation aMapLocation) {
+        if (aMapLocation != null) {
+            if (aMapLocation.getErrorCode() == 0) {
+
+                SimpleDateFormat df = new SimpleDateFormat("MM-dd HH:mm");
+                Date date = new Date(aMapLocation.getTime());
+                df.format(date);
+                pointDate = df.format(date);
+
+                double mapLong = aMapLocation.getLongitude();
+                double mapLat = aMapLocation.getLatitude();
+
+
+                if (isFirstLoc) {
+
+
+                    aMap.moveCamera(CameraUpdateFactory.zoomTo(17));
+                    aMap.moveCamera(CameraUpdateFactory.changeLatLng(
+                            new LatLng(aMapLocation.getLatitude(), aMapLocation.getLongitude())));
+
+                    mListener.onLocationChanged(aMapLocation);
+                    isFirstLoc = false;
+
+                }
+                StringBuffer mapLocation = new StringBuffer();
+                mapLocation.append(aMapLocation.getCity()
+                        + " " + aMapLocation.getDistrict()
+                        + " " + aMapLocation.getStreet()
+                        + " " + aMapLocation.getStreetNum()
+                );
+
+                final String changeLoc = aMapLocation.getStreet();
+
+                if (changeLoc != aMapLocation.getStreet() || locShow) {
+                    ShowToast.ColorToast(LocMap.this, mapLocation.toString(), 2500);
+
+                    String location = mapLocation.toString();
+                    String maplong = mapLong + "";
+                    String maplat = mapLat + "";
+
+                    sp.saveString("MapLong", maplong);
+                    sp.saveString("MapLat", maplat);
+                    sp.saveString("MapLoc", location);
+
+                    locShow = false;
+                }
+
+
+            } else {
+                Log.e("AmapError", "location Error, ErrCode:"
+                        + aMapLocation.getErrorCode() + ", errInfo:"
+                        + aMapLocation.getErrorInfo());
+            }
+        }
+    }
+
+
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()) {
+            case R.id.float_btn:
+
+                addLinePoint();
+                break;
+
+            default:
+                break;
+        }
+    }
+
+
+    @Override
+    public void activate(OnLocationChangedListener onLocationChangedListener) {
+        mListener = onLocationChangedListener;
+    }
+
+    @Override
+    public void deactivate() {
+        mListener = null;
     }
 
     @Override
@@ -205,11 +296,6 @@ public class LocMap extends AppCompatActivity implements
         mapView.onDestroy();
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        mapView.onSaveInstanceState(outState);
-    }
 
     @Override
     public void onBackPressed() {
@@ -224,109 +310,6 @@ public class LocMap extends AppCompatActivity implements
             }, 1200);
         } else {
             this.finish();
-        }
-
-    }
-
-    @Override
-    public void onLocationChanged(AMapLocation aMapLocation) {
-        if (aMapLocation != null) {
-            if (aMapLocation.getErrorCode() == 0) {
-                aMapLocation.getLocationType();
-                aMapLocation.getLatitude();
-                aMapLocation.getLongitude();
-                aMapLocation.getAccuracy();
-
-                SimpleDateFormat df = new SimpleDateFormat("MM-dd HH:mm");
-                Date date = new Date(aMapLocation.getTime());
-                df.format(date);
-
-                pointDate = df.format(date);
-
-                Log.e(TAG,"*** Show get Date is ***"+df.format(date));
-
-                aMapLocation.getAddress();
-                aMapLocation.getCountry();
-                aMapLocation.getProvince();
-                aMapLocation.getCity();
-                aMapLocation.getDistrict();
-                aMapLocation.getStreet();
-                aMapLocation.getStreetNum();
-                aMapLocation.getCityCode();
-                aMapLocation.getAdCode();
-
-                double mapLong = aMapLocation.getLongitude();
-                double mapLat = aMapLocation.getLatitude();
-                StringBuffer mapLocation = new StringBuffer();
-
-
-                mapLocation.append(aMapLocation.getCity()
-                        +" "+aMapLocation.getDistrict()
-                        +" "+aMapLocation.getStreet()
-                        +" "+aMapLocation.getStreetNum()
-                );
-
-                aMap.moveCamera(CameraUpdateFactory.zoomTo(17));
-
-                aMap.moveCamera(CameraUpdateFactory.changeLatLng(
-                        new LatLng(aMapLocation.getLatitude(), aMapLocation.getLongitude())));
-                mListener.onLocationChanged(aMapLocation);
-
-                StringBuffer buffer = new StringBuffer();
-                buffer.append(aMapLocation.getCity()
-                        + "" + aMapLocation.getDistrict()
-                        + "" + aMapLocation.getStreet()
-                        + "");
-
-                final String changeLoc = aMapLocation.getStreet();
-
-                if (changeLoc != aMapLocation.getStreet() || locShow) {
-                    ShowToast.ColorToast(LocMap.this, buffer.toString(), 2500);
-
-                    String location = mapLocation.toString();
-                    String maplong = mapLong+"";
-                    String maplat = mapLat+"";
-
-                    sp.saveString("MapLong",maplong);
-                    sp.saveString("MapLat",maplat);
-                    sp.saveString("MapLoc",location);
-
-                    locShow = false;
-                }
-
-
-            } else {
-                Log.e("AmapError", "location Error, ErrCode:"
-                        + aMapLocation.getErrorCode() + ", errInfo:"
-                        + aMapLocation.getErrorInfo());
-            }
-        }
-    }
-
-    @Override
-    public void activate(OnLocationChangedListener onLocationChangedListener) {
-        mListener = onLocationChangedListener;
-    }
-
-    @Override
-    public void deactivate() {
-        mListener = null;
-    }
-
-
-
-
-    @Override
-    public void onClick(View v) {
-
-        switch (v.getId()) {
-            case R.id.float_btn:
-
-                addLinePoint();
-                break;
-
-            default:
-                break;
         }
 
     }
