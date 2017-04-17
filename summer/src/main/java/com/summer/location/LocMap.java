@@ -152,8 +152,8 @@ public class LocMap extends AppCompatActivity implements
                 break;
 
             case R.id.action_MyLine:
-//                Intent intentMyLine = new Intent(LocMap.this, ProLine.class);
-                Intent intentMyLine = new Intent(LocMap.this, LinePointActivity.class);
+                Intent intentMyLine = new Intent(LocMap.this, ProLine.class);
+//                Intent intentMyLine = new Intent(LocMap.this, LinePointActivity.class);
                 startActivity(intentMyLine);
                 break;
 

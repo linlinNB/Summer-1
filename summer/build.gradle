@@ -44,8 +44,8 @@ dependencies {
     compile 'jp.wasabeef:glide-transformations:2.0.1'
     compile 'com.jude:rollviewpager:1.4.6'
     compile 'com.squareup.picasso:picasso:2.5.2'
-
     testCompile 'junit:junit:4.12'
+    compile files('libs/AMap2DMap_4.2.0_AMapSearch_4.0.0_AMapLocation_3.3.0_20170120.jar')
     compile files('libs/avoscloud-push-v3.15.9.jar')
     compile files('libs/avoscloud-sdk-v3.15.9.jar')
     compile files('libs/eventBus.jar')
@@ -54,8 +54,6 @@ dependencies {
     compile files('libs/okhttp-2.6.0-leancloud.jar')
     compile files('libs/okio-1.6.0-leancloud.jar')
     compile files('libs/protobuf-java-2.6.1.jar')
-    compile files('libs/AMap_2DMap_V2.8.1_20160202.jar')
-    compile files('libs/AMap_Location_V2.4.0_20160308.jar')
     compile files('libs/android-smart-image-view-1.0.0.jar')
     compile files('libs/bugly_crash_release.jar')
     compile files('libs/xUtils-2.6.14.jar')
