@@ -20,15 +20,22 @@
         app:showAsAction="always"/>
 
     <item
+        android:id="@+id/action_Point"
+        android:icon="@mipmap/ic_design"
+        android:orderInCategory="90"
+        android:title="My_Point"
+        app:showAsAction="always"/>
+
+    <item
         android:id="@+id/action_setoute"
         android:title="规划路线"
-        android:orderInCategory="90"
+        android:orderInCategory="100"
         app:showAsAction="ifRoom"
      />
 
     <item
         android:id="@+id/action_out"
-        android:orderInCategory="100"
+        android:orderInCategory="110"
         android:title="退出应用"
         app:showAsAction="ifRoom"/>
 

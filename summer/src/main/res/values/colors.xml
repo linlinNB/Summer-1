@@ -113,4 +113,14 @@
     <color name="colorDark8">#2a213f</color>
     <color name="colorDark9">#2e2e2e</color>
 
+    <color name="grey"> #ebebeb</color>
+    <color name="darkgrey"> #999999</color>
+    <color name="blue">#4c90f9</color>
+    <color name="gary">#898989</color>
+    <color name="gray_lite">#c5c5c5</color>
+    <color name="phone_bg">#f6f6f6</color>
+    <color name="itemlist">#f4f4f4</color>
+    <color name="watermark_hint">#ccffffff</color>
+    <color name="act_background">#efefef</color>
+
 </resources>

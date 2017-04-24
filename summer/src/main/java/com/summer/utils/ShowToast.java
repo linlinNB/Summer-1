@@ -94,7 +94,7 @@ public class ShowToast {
                 view = LayoutInflater.from(activity).inflate(R.layout.view_color_toast, null);
                 TextView textView = (TextView) view.findViewById(R.id.tv_toast);
                 textView.setText(content);
-                toast.setGravity(Gravity.CENTER_VERTICAL, 0, -600);
+                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 700);
                 toast.setView(view);
                 toast.show();
 
