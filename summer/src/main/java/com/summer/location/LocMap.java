@@ -149,13 +149,6 @@ public class LocMap extends AppCompatActivity implements
         mPoiName = (TextView) findViewById(R.id.tv_poi_name);
         mPoiAddress = (TextView) findViewById(R.id.tv_poi_address);
 
-        String mapLong = sp.getStringByKey("MapLong");
-        String mapLat = sp.getStringByKey("MapLat");
-        mLong = Double.valueOf(mapLong).doubleValue();
-        mLat = Double.valueOf(mapLat).doubleValue();
-
-        latLonPoint = new LatLonPoint(mLat, mLong);
-
     }
 
     private void addListener() {
@@ -165,6 +158,9 @@ public class LocMap extends AppCompatActivity implements
 
     }
 
+    /**
+     * 设置定位样式
+     */
     private void setUpMap() {
         aMap = mapView.getMap();
 
@@ -191,6 +187,9 @@ public class LocMap extends AppCompatActivity implements
 
     }
 
+    /**
+     * 设置定位监听 开始定位
+     */
     private void initLoc() {
         mLocationClient = new AMapLocationClient(getApplicationContext());
         mLocationClient.setLocationListener(this);
@@ -206,6 +205,62 @@ public class LocMap extends AppCompatActivity implements
         mLocationClient.setLocationOption(mLocationOption);
         mLocationClient.startLocation();
 
+    }
+
+
+    @Override
+    public void onLocationChanged(AMapLocation aMapLocation) {
+        if (aMapLocation != null) {
+            if (aMapLocation.getErrorCode() == 0) {
+
+                SimpleDateFormat df = new SimpleDateFormat("MM-dd HH:mm");
+                Date date = new Date(aMapLocation.getTime());
+                df.format(date);
+                pointDate = df.format(date);
+
+                double mapLong = aMapLocation.getLongitude();
+                double mapLat = aMapLocation.getLatitude();
+
+                latLonPoint = new LatLonPoint(mapLong,mapLat);
+
+                if (isFirstLoc) {
+                    aMap.moveCamera(CameraUpdateFactory.zoomTo(17));
+                    aMap.moveCamera(CameraUpdateFactory.changeLatLng(
+                            new LatLng(aMapLocation.getLatitude(), aMapLocation.getLongitude())));
+
+                    mListener.onLocationChanged(aMapLocation);
+                    isFirstLoc = false;
+
+                }
+                StringBuffer mapLocation = new StringBuffer();
+                mapLocation.append(aMapLocation.getCity()
+                        + " " + aMapLocation.getDistrict()
+                        + " " + aMapLocation.getStreet()
+                        + " " + aMapLocation.getStreetNum()
+                );
+
+                final String changeLoc = aMapLocation.getStreet();
+
+                if (changeLoc != aMapLocation.getStreet() || locShow) {
+                    ShowToast.ColorToast(LocMap.this, mapLocation.toString(), 2500);
+
+                    String location = mapLocation.toString();
+                    String maplong = mapLong + "";
+                    String maplat = mapLat + "";
+
+                    sp.saveString("MapLong", maplong);
+                    sp.saveString("MapLat", maplat);
+                    sp.saveString("MapLoc", location);
+
+                    locShow = false;
+                }
+
+            } else {
+                Log.e("AmapError", "location Error, ErrCode:"
+                        + aMapLocation.getErrorCode() + ", errInfo:"
+                        + aMapLocation.getErrorInfo());
+            }
+        }
     }
 
 
@@ -359,6 +414,10 @@ public class LocMap extends AppCompatActivity implements
                 addLinePoint();
                 break;
 
+            case R.id.action_SetRoute:
+                ShowToast.ColorToast(LocMap.this, "Set Route", 1200);
+                break;
+
             case R.id.action_out:
                 /**
                  * TODO
@@ -387,60 +446,6 @@ public class LocMap extends AppCompatActivity implements
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
         return true;
-    }
-
-
-    @Override
-    public void onLocationChanged(AMapLocation aMapLocation) {
-        if (aMapLocation != null) {
-            if (aMapLocation.getErrorCode() == 0) {
-
-                SimpleDateFormat df = new SimpleDateFormat("MM-dd HH:mm");
-                Date date = new Date(aMapLocation.getTime());
-                df.format(date);
-                pointDate = df.format(date);
-
-                double mapLong = aMapLocation.getLongitude();
-                double mapLat = aMapLocation.getLatitude();
-
-                if (isFirstLoc) {
-                    aMap.moveCamera(CameraUpdateFactory.zoomTo(17));
-                    aMap.moveCamera(CameraUpdateFactory.changeLatLng(
-                            new LatLng(aMapLocation.getLatitude(), aMapLocation.getLongitude())));
-
-                    mListener.onLocationChanged(aMapLocation);
-                    isFirstLoc = false;
-
-                }
-                StringBuffer mapLocation = new StringBuffer();
-                mapLocation.append(aMapLocation.getCity()
-                        + " " + aMapLocation.getDistrict()
-                        + " " + aMapLocation.getStreet()
-                        + " " + aMapLocation.getStreetNum()
-                );
-
-                final String changeLoc = aMapLocation.getStreet();
-
-                if (changeLoc != aMapLocation.getStreet() || locShow) {
-                    ShowToast.ColorToast(LocMap.this, mapLocation.toString(), 2500);
-
-                    String location = mapLocation.toString();
-                    String maplong = mapLong + "";
-                    String maplat = mapLat + "";
-
-                    sp.saveString("MapLong", maplong);
-                    sp.saveString("MapLat", maplat);
-                    sp.saveString("MapLoc", location);
-
-                    locShow = false;
-                }
-
-            } else {
-                Log.e("AmapError", "location Error, ErrCode:"
-                        + aMapLocation.getErrorCode() + ", errInfo:"
-                        + aMapLocation.getErrorInfo());
-            }
-        }
     }
 
 

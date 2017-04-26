@@ -27,7 +27,7 @@
         app:showAsAction="always"/>
 
     <item
-        android:id="@+id/action_setoute"
+        android:id="@+id/action_SetRoute"
         android:title="规划路线"
         android:orderInCategory="100"
         app:showAsAction="ifRoom"
