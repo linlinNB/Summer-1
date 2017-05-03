@@ -77,11 +77,13 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
 
-        <activity android:name=".publish.LinePointActivity"
+        <activity
+            android:name=".publish.LinePointActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
 
-        <activity android:name=".publish.PointDetail"
+        <activity
+            android:name=".publish.PointDetail"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
 
@@ -92,6 +94,16 @@
 
         <activity
             android:name=".roadline.ProLine"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+
+        <activity
+            android:name=".route.RideRoteActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+
+        <activity
+            android:name=".route.RideRouteDetailActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
 

@@ -46,6 +46,7 @@ import com.summer.publish.PointDetail;
 import com.summer.publish.PubActivity;
 import com.summer.roadline.AllLine;
 import com.summer.roadline.ProLine;
+import com.summer.route.RideRoteActivity;
 import com.summer.utils.SharedPreferencesUtil;
 import com.summer.utils.ShowToast;
 
@@ -415,7 +416,8 @@ public class LocMap extends AppCompatActivity implements
                 break;
 
             case R.id.action_SetRoute:
-                ShowToast.ColorToast(LocMap.this, "Set Route", 1200);
+                Intent intentRoute = new Intent(LocMap.this, RideRoteActivity.class);
+                startActivity(intentRoute);
                 break;
 
             case R.id.action_out:
